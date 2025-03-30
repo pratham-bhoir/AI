@@ -46,3 +46,19 @@ def lips_aspect_ratio(lips):
     lar = float(dist1/dist2)
 
     return lar
+
+
+# Facial Landmarks for any face part
+# Function to calculate facial landmark point coordinates (x,y),
+# draw them on frame and return a numpy array with the corresponding points
+
+
+
+def draw_landmarks(face_part, landmarks):
+    landmarks_list = []
+    for point in face_part:
+        x, y = landmarks.part(point).x, landmarks.part(point).y
+        landmarks_list.append([x, y])
+        cv2.circle(frame, (x, y), 2, (0, 0, 255), -1)
+
+    return np.array(landmarks_list)
