@@ -162,3 +162,25 @@ while True:
             yawn_counter = 0
         cv2.putText(frame, "Yawns: {}".format(total_yawns),
                     (10, 110), font, font_scale, (0, 0, 255), 2)
+        
+
+          # Drowsiness Detection
+        if total_yawns > 2 or total_blinks > 3:
+            pygame.mixer.music.play(-1)
+            frame[20:120, w-120:w-20] = image  # Show coffee break image
+            
+            cv2.putText(frame, "ALERT", (w-120, 160),
+                        font, 1.2, (0, 0, 255), 4)
+        else:
+               pygame.mixer.music.stop()
+               
+         
+    cv2.imshow('Frame', frame)
+    key = cv2.waitKey(1)
+    if key == 27:
+        break
+    if key == ord('r') or key == ord('R'):
+        total_blinks, total_yawns = 0, 0  # Reset calculations by pressing 'r' or 'R'
+
+cap.release()
+cv2.destroyAllWindows()
