@@ -99,3 +99,15 @@ while True:
 
     # Detect faces in the gray frame
     faces = detector(gray, 0)
+
+
+ # Loop through each face
+    for face in faces:
+        # Determine facial landmarks
+        facial_landmarks = predictor(gray, face)
+
+        # Landmark indexes for eyes and lips
+        left_eye = [36, 37, 38, 39, 40, 41]
+        right_eye = [42, 43, 44, 45, 46, 47]
+
+        lips = [60, 61, 62, 63, 64, 65, 66, 67]
