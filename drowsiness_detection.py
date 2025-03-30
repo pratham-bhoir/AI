@@ -29,3 +29,20 @@ def eye_aspect_ratio(eye):
     ear = (dist1 + dist2) / (2.0 * dist3)
 
     return ear
+
+
+# Lips Aspect Ratio (L.A.R.)
+# Function to calculate lips aspect ratio in the same way as in E.A.R.
+# Landmarks |   0  1  2  3  4  5  6  7
+#      Lips : [60,61,62,63,64,65,66,67]
+
+def lips_aspect_ratio(lips):
+    # Vertical distance
+    dist1 = dist.euclidean(lips[2], lips[6])  # L3-L7
+    # Horiontal distance
+    dist2 = dist.euclidean(lips[0], lips[4])  # L1-L5
+
+    # Lips Aspect Ratio (L.A.R.)
+    lar = float(dist1/dist2)
+
+    return lar
