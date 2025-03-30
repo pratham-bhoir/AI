@@ -141,4 +141,24 @@ while True:
         lar = lips_aspect_ratio(lips_points)  # Lips aspect ratio
         cv2.putText(frame, "L.A.R. : {:.2f}".format(
             lar), (10, 90), font, font_scale, (0, 0, 255), 2)
+        
+         # Check for blinks or yawns
+        # BLINK
+        if ear < ear_thresh:
+            blink_counter += 1
+        else:
+            if blink_counter > 3:
+                total_blinks += 1
+            blink_counter = 0
+        cv2.putText(frame, "Blinks: {}".format(total_blinks),
+                    (10, 50), font, font_scale, (0, 0, 255), 2)
 
+        # YAWN
+        if lar > lar_thresh:
+            yawn_counter += 1
+        else:
+            if yawn_counter > 1:
+                total_yawns += 1
+            yawn_counter = 0
+        cv2.putText(frame, "Yawns: {}".format(total_yawns),
+                    (10, 110), font, font_scale, (0, 0, 255), 2)
