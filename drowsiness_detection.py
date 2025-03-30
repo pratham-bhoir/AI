@@ -128,3 +128,17 @@ while True:
 
         lips_hull = cv2.convexHull(lips_points)
         cv2.drawContours(frame, [lips_hull], -1, (0, 255, 0), 1)
+
+         # Calculate E.A.R. and L.A.R.
+        left_ear = eye_aspect_ratio(left_eye_points)    # Left eye aspect ratio
+        right_ear = eye_aspect_ratio(
+            right_eye_points)  # Right eye aspect ratio
+        # Average eye aspect ratio
+        ear = (left_ear + right_ear) / 2.0
+        cv2.putText(frame, "E.A.R. : {:.2f}".format(
+            ear), (10, 30), font, font_scale, (0, 0, 255), 2)
+
+        lar = lips_aspect_ratio(lips_points)  # Lips aspect ratio
+        cv2.putText(frame, "L.A.R. : {:.2f}".format(
+            lar), (10, 90), font, font_scale, (0, 0, 255), 2)
+
