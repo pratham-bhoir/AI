@@ -62,3 +62,40 @@ def draw_landmarks(face_part, landmarks):
         cv2.circle(frame, (x, y), 2, (0, 0, 255), -1)
 
     return np.array(landmarks_list)
+
+# DLIB - Face Detector
+detector = dlib.get_frontal_face_detector()
+# DLIB - Predictor
+predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+
+# Video Capture
+cap = cv2.VideoCapture(0)
+
+# Text settings
+font = cv2.FONT_HERSHEY_SIMPLEX
+font_scale = 0.7
+
+# Initializations
+frames = 0
+
+# ear & lar, threshold values
+ear_thresh = 0.3
+lar_thresh = 0.5
+
+# Blink initializations
+blink_counter, total_blinks = 0, 0
+# Yawn initializations
+yawn_counter, total_yawns = 0, 0
+
+while True:
+    _, frame = cap.read()
+    frame = cv2.flip(frame, 1)  # May not be necessary
+    h, w = frame.shape[: 2]    # Height and Width of frame
+
+    frames += 1
+
+    # Grayscale
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # Detect faces in the gray frame
+    faces = detector(gray, 0)
