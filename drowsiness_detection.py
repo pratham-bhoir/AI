@@ -111,3 +111,20 @@ while True:
         right_eye = [42, 43, 44, 45, 46, 47]
 
         lips = [60, 61, 62, 63, 64, 65, 66, 67]
+
+# Convert to numpy array the above lists and
+# draw the corresponding facial landmark points on frame
+        left_eye_points = draw_landmarks(left_eye, facial_landmarks)
+        right_eye_points = draw_landmarks(right_eye, facial_landmarks)
+
+        lips_points = draw_landmarks(lips, facial_landmarks)
+
+        # Find and draw the convex hulls of left and right eye, and lips
+        left_eye_hull = cv2.convexHull(left_eye_points)
+        cv2.drawContours(frame, [left_eye_hull], -1, (0, 255, 0), 1)
+
+        right_eye_hull = cv2.convexHull(right_eye_points)
+        cv2.drawContours(frame, [right_eye_hull], -1, (0, 255, 0), 1)
+
+        lips_hull = cv2.convexHull(lips_points)
+        cv2.drawContours(frame, [lips_hull], -1, (0, 255, 0), 1)
